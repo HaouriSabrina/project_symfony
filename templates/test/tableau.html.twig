@@ -1,0 +1,52 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    
+        <tr><td>{{ tableau[0]}}</td></tr>
+        <tr><td>{{ tableau[1]}}</td></tr>
+        <tr><td>{{ tableau[2]}}</td></tr>
+        <tr><td>{{ tableau[3]}}</td></tr>
+    </table>
+
+    {# BOUCLE : balise for : 
+        {% for variable in debut...fin%}
+
+        La variable va passer de la valeur 'début' et la valeur 'fin' et être incrémenté de 1 à chaque tour. 
+    #}
+    <table class="table table-bordered">
+    {% for i in 0..3 %}
+        <tr>
+            <td>{{ tableau[i]}}</td>
+        </tr>
+    {% endfor %}
+    </table>
+
+    <table class="table table-bordered table-striped">
+    {% for i in 0..tableau|length - 1 %}
+        <tr>
+            <td> {{tableau [i] }}</td>
+        </tr>
+    {% endfor %}
+    </table>
+
+    {% for car  in 'a'..'z' %}
+    {#car pour caractère mais la variable(constante) peut s'appeler n'importe comment#}
+        {{ car }}
+    {% endfor %}
+
+    <hr><hr>
+
+    {# Equivalent de la bouble php foreach
+        foreach ($tableau as $valeur)
+    #}
+
+    {% for valeur in tableau%}
+        {{valeur}}
+    {% endfor %}
+
+    {# foreach($tableau as $indice => $valeur) #}
+    {% for indice, valeur in tableau %}
+        <p>{{indice}} : {{ tableau}}</p>
+    {% endfor %}
+
+{% endblock %}

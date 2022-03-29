@@ -1,0 +1,115 @@
+symfony server:start -d
+symfony server:stop
+
+php -S localhost:8000 -t public
+
+php bin/console 
+symfony console make:controller
+
+symfony console doctrine:database:create
+
+// Permet de créer une classe Entity qui représente une table de la bdd
+symfony console make:entity
+
+// Compare la bdd et le dossier Entity : crée les requêtes SQL qui mettront à jour la bdd selon les entités
+symfony console make:migration
+
+// Met à jour la bdd en exécutant les migrations
+
+symfony console doctrine:migrations:migrate
+
+// Créer une classe pour gérer un formulaire basé sur une classe entité
+symfony console make:form
+
+// classe pour générer un bouton Submit (à utiliser dans une classe Form)
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+
+
+// dans la console, pour afficher la liste des routes
+symfony console debug:route --show-controllers
+
+
+//Pour créer l'entité qui va servir à conserver les informations des utilisateurs. 
+//Pour la connexion et l'inscription
+symfony console make:user
+
+
+//
+$ symfony console make:auth
+
+
+//Liste de tous les make
+$ symfony console list make
+
+
+// formulaire d'inscription
+$ symfony console make:registration-form
+
+
+RESUME  : 
+
+make:user   // pour créer l'entité qui conservera les infos des utilisateurs
+make:auth   // pour créer une authentification (formulaire de connexion)
+make:registration-form  // pour créer un formulaire d'inscription
+
+---------------------------------------------------------------------------
+CREATION D'UN CRUD
+$ symfony console make:crud
+
+ The class name of the entity to create CRUD (e.g. AgreeablePizza):
+ > User
+User
+
+ Choose a name for your controller class (e.g. UserController) [UserController]:
+ > Admin\UserController
+
+ created: src/Controller/Admin/UserController.php
+ created: src/Form/UserType.php
+ created: templates/admin/user/_delete_form.html.twig
+ created: templates/admin/user/_form.html.twig
+ created: templates/admin/user/edit.html.twig
+ created: templates/admin/user/index.html.twig
+ created: templates/admin/user/new.html.twig
+ created: templates/admin/user/show.html.twig
+
+           
+  Success! 
+           
+
+ Next: Check your new CRUD by going to /admin/user/
+
+
+
+
+---------------------------------------------------------------------------
+
+$ bin/console debug:router -> Affiche les différentes routes du projet
+
+
+php -S 127.0.0.1:8002 -t public 
+
+
+snippets : 
+
+{
+	"short4":{
+		"scope": "php",
+		"prefix": ["pub"],
+		"body": ["/**\r*@Route(\"/$1\", name=\"$1\") \r*/\rpublic function $1()\r{\r \r \r return $this-> ;\r}" ]
+	}
+}
+
+PHP STORM //
+------------------------------------------------------------------------
+
+Dans live templates
+/**
+*@Route("/$NAME$", name="$NAME$")
+*
+*/
+public function $NAME$(){
+   
+   
+   return $this->render('/$NAME$.html.twig', [
+   ]);
+}

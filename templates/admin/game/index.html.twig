@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des jeux!{% endblock %}
+
+{% block body %}
+    <h1>Liste des jeux</h1>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Titre</th>
+                <th>Joueurs Min</th>
+                <th>Joueur  Max</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for game in games %}
+            <tr>
+                <td>{{ game.id }}</td>
+                <td>{{ game.title }}</td>
+                <td>{{ game.minPlayers }}</td>
+                <td>{{ game.maxPlayers }}</td>
+                <td>
+                    <a href="{{ path('app_admin_game_edit', {id: game.id}) }}"> <i class="fa fa-edit"></i> </a>
+                    <a href="{{ path('app_admin_game_modifier', {title: game.title}) }}"> <i class="fa fa-pencil"></i> </a>
+                    <a href="{{ path('app_admin_game_delete', {id: game.id}) }}"> <i class="fa fa-trash"></i> </a>
+                </td>
+            </tr>
+            {% else %}
+                <tr>
+                    <td colspan="4"> Aucun jeu n'est enregistré</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

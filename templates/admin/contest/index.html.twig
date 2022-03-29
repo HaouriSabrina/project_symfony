@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contest index{% endblock %}
+
+{% block body %}
+    <h1>Contest index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Début</th>
+                <th>Jeu</th>
+                <th>Participants</th>
+                <th>Vainqueur</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for contest in contests %}
+            <tr>
+                <td>{{ contest.id }}</td>
+                <td>{{ contest.startDate|date('d/m/Y')}}</td>
+                <td>{{ contest.game.title}}</td>
+                <td> {{ contest.players|length}}</td>
+                <td>{{ contest.winner ? contest.winner.nickname : "" }}</td>
+                <td>
+                    <a href="{{ path('app_admin_contest_show', {'id': contest.id}) }}">show</a>
+                    <a href="{{ path('app_admin_contest_edit', {'id': contest.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_admin_contest_new') }}">Create new</a>
+{% endblock %}

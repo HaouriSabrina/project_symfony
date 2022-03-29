@@ -26,10 +26,49 @@ class TestController extends AbstractController
     public function calcul(): Response
     {
         return $this->render('test/index.html.twig',[
-            'controller_name' => 'Sabrina :',
+            'controller_name' => 'Sabrina',
             'texte' => 'Hello',
             'calcul' => 12 + 7
         ]);
     }
-    
+
+    #[Route('/test/salut')]
+    public function salut()
+    {
+        return $this->render("test/salut.html.twig", ["prenom" => "Sabrina"]);
+    }
+
+    #[Route('/test/tableau')]
+    public function tableau()
+    {
+        $tableau = ["bonjour", "je m'apelle", 789, true];
+        return $this->render("test/tableau.html.twig", [
+            "tableau" => $tableau
+        ]);
+    }
+
+    #[Route('/test/tableau-assoc')]
+
+    public function tab()
+    {
+        $p = [
+            "nom" => "Cérien",
+            "prenom" => "Jean",
+            "age" => 32
+        ];
+
+        return $this->render("test/assoc.html.twig", ["personne" => $p]);
+        //Afficher "Je m'appelle" suivi du prénom et du nom dans le tableau
+    }
+
+    #[Route("test/objet")]
+
+    public function objet()
+    {
+        $objet = new \stdClass;
+        $objet->prenom = "Nordine";
+        $objet->nom = "Ateur";
+        $objet->age = 40;
+        return $this->render("test/assoc.html.twig", ["personne" => $objet]);
+    }
 }

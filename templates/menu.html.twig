@@ -1,0 +1,69 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="{{ path('app_home') }}">MyscoreBoard</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      {% if app.user %}
+        <li class="nav-item">
+          <a class="nav-link" href="{{path('app_profil')}}"> Bonjour {{ app.user.pseudo }}</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="{{ path('app_logout')}}"><i class="fa fa-sign-out"></i></a>
+        </li>
+      {% else %}
+        <li class="nav-item">
+          <a class="nav-link" href="{{ path('app_login') }}"><i class="fa fa-sign-in"></i><span class="sr-only">(current)</span></a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="{{ path('app_register') }}"><i class="fa fa-user-plus"></i><span class="sr-only">(current)</span></a>
+        </li>
+      {% endif %}
+      
+      {#la fonction Twig is_granted() permet de vérifier qu'un utilisateur est connecté et qu'il a le rôle qui est passé en argument#}
+      {% if  is_granted("ROLE_ADMIN") %}
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Jeux
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="{{ path('app_admin_game') }}">Liste</a>
+          <a class="dropdown-item" href="{{ path('app_admin_game_new') }}">Ajouter</a>
+        </div>
+      </li>
+
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Joueurs
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="{{ path('app_admin_player_index') }}">Liste</a>
+          <a class="dropdown-item" href="{{ path('app_admin_player_new')   }}">Ajouter</a>
+        </div>
+      </li>
+      
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Parties
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="{{ path('app_admin_contest_index') }}">Liste</a>
+          <a class="dropdown-item" href="{{ path('app_admin_contest_new')   }}">Ajouter</a>
+        </div>
+      </li>
+      {% endif %}
+
+      <li class="nav-item">
+        <a class="nav-link disabled" href="#">Disabled</a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
+</nav>

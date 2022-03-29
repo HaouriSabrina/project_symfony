@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Player{% endblock %}
+
+{% block body %}
+    <h1>Player</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ player.id }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ player.email }}</td>
+            </tr>
+            <tr>
+                <th>Pseudo</th>
+                <td>{{ player.nickname }}</td>
+            </tr>
+            <tr>
+                <th>Parties</th>
+                <td>
+                    <table class= "table table-stripped">
+                        <thead class="thead-dark">
+                            <th>Début</th>
+                            <th>Jeu</th>
+                            <th>Vainqueur</th>
+                        </thead>
+
+                        <tbody>
+                            {# Affichez toutes les parties (= contest) auxquelles à participer ce jour#}
+                            {% for item in player.contests %}
+                                <tr>
+                                    <td>{{ item.startdate| date('d/m/Y') }}</td>
+                                    <td>{{ item.game.title }}</td>
+                                    <td>{{ item.winner ? item.winner.nickname : "" }}</td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="3">Ce joueur n'a participé à aucune partie</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_admin_player_index') }}">back to list</a>
+
+    <a href="{{ path('app_admin_player_edit', {'id': player.id}) }}">edit</a>
+
+    {{ include('admin/player/_delete_form.html.twig') }}
+{% endblock %}
