@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\User;
+use App\Entity\User, App\Entity\Player;
 use App\Form\RegistrationFormType;
 use App\Security\LoginAuthenticator;
 use Doctrine\ORM\EntityManagerInterface;
@@ -20,6 +20,7 @@ class RegistrationController extends AbstractController
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, LoginAuthenticator $authenticator, EntityManagerInterface $entityManager): Response
     {
         $user = new User();
+        $player = new Player;
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
@@ -28,11 +29,17 @@ class RegistrationController extends AbstractController
             $user->setPassword(
             $userPasswordHasher->hashPassword(
                     $user,
-                    $form->get('plainPassword')->getData()
+                    $form->get('plainPassword')->getData(),
+                    
                 )
             );
 
+            
             $user->setRoles(['ROLE_PLAYER']);
+            $player->setNickname($user->getPseudo());
+            $player->setEmail($form->get('email')->getData());
+            $user->setPlayer($player);
+
             $entityManager->persist($user);
             $entityManager->flush();
             // do anything else you need here, like send an email

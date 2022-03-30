@@ -6,26 +6,21 @@
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
         {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
         {% block stylesheets %}
-            {# {{ encore_entry_link_tags('app') }} #}
-            <link   rel="stylesheet" 
-                    href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" 
-                    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" 
-                    crossorigin="anonymous">
+            {% if is_granted('ROLE_ADMIN')%}
+                {{ encore_entry_link_tags('admin') }}
+            {% else %}
+                {{ encore_entry_link_tags('app') }}
+            {% endif %}
+
         {% endblock %}
 
         {% block javascripts %}
-            <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-                integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs="
-                crossorigin="anonymous"></script>
-
-            <script src=https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js
-                integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
-                crossorigin="anonymous"></script>
-
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-            {# {{ encore_entry_script_tags('app') }} #}
+            {{ encore_entry_script_tags('app') }}
+            {% if is_granted('ROLE_ADMIN')%}
+                {{ encore_entry_script_tags('admin') }}
+            {% endif %}
         {% endblock %}
+
     </head>
     <body>
         <div class="container">

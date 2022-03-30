@@ -1,4 +1,4 @@
-symfony server:start -d
+symfony server:start -d // tournera en fond
 symfony server:stop
 
 php -S localhost:8000 -t public
@@ -78,11 +78,37 @@ User
 
  Next: Check your new CRUD by going to /admin/user/
 
+----------------------------------------------------------------------------
+Installation webpack, bootsrap, jquery, compilateur sass : 
 
-
+composer require encore 
+		   *ou*  symfony/webpack-encore-bundle
+                
+yarn install
+yarn add node-sass
+yarn add sass-loader
+yarn add @fortawesome/fontawesome-free
+yarn add bootstrap@4.6
+yarn add jquery
+yarn add popper.js
+yarn add file-loader
 
 ---------------------------------------------------------------------------
 
+
+// dans le ficher assets/styles/app.scss
+@import "~@fortawesome/fontawesome-free/css/all.min.css";
+@import "~bootstrap/scss/bootstrap";
+
+
+// pour compiler les fichiers de front
+yarn encore dev
+yarn encore prod
+
+// pour ne pas avoir à lancer la commande à chaque modification d'un fichier js ou css
+yarn encore dev --watch ( ⚠ le terminal n'est plus accessible)
+
+---------------------------------------------------------------------------
 $ bin/console debug:router -> Affiche les différentes routes du projet
 
 

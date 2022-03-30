@@ -26,7 +26,26 @@
                 arbitre pour le ROLE_REFEREE
                 utilisateur pour le ROLE_USER
                  #}
-                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+                {# <td>{{ user.roles ? user.roles|json_encode : '' }}</td> #}
+                <td>
+                    {% for role in user.roles %}
+                        {% if role == 'ROLE_ADMIN' %}
+                            Administrateur
+                        {% elseif role == 'ROLE_PLAYER' %}
+                            joueur
+                        {% elseif role == 'ROLE_REFEREE' %}
+                            arbitre
+                        {% else %}
+                            Utilisateur
+                        {% endif %}
+                        {{not loop.last ? ',' : ''}}
+                        {# La variable loop existe dans une boucle FOR et contient des informations sur les tours 
+                        ex : loop.first (bool) qui vaut true si c'est le 1er tour. 
+                            loop.last (bool) qui vaut true si c'est le dernier tour
+                            loop.index (int) qui est égal au tour actuel.
+                         #}
+                    {% endfor %}
+                </td>
                 <td>******</td>
                 <td>
                     <a href="{{ path('app_admin_user_show', {'id': user.id}) }}">show</a>

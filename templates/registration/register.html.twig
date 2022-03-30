@@ -1,14 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}Inscription{% endblock %}
 
 {% block body %}
-    <h1>Register</h1>
-
+    <h1>Inscription</h1>
+    {# Le formulaire est crée selon la classe qui est utilisé dans le contrôleur (dans la méthode createForm)
+    Tous les champs déclarés dans cette classe seront affichés dans le formulaire, qu'ils soient explicitement indiqués dans le fichier twig ou non.    
+     #}
     {{ form_start(registrationForm) }}
         {{ form_row(registrationForm.pseudo) }}
         {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
+            label: 'Mot de passe',
+            help: '6 caractères minimum'
         }) }}
         {{ form_row(registrationForm.agreeTerms) }}
 

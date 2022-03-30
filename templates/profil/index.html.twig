@@ -10,7 +10,16 @@
         <li class="list-group-item">Mot de passe : {{ app.user.password}}</li>
         <li class="list-group-item">Autorisation : 
             {% for role in app.user.roles %}
-                {{ role }},
+                {% if role == 'ROLE_ADMIN' %}
+                    Administrateur
+                {% elseif role == 'ROLE_PLAYER' %}
+                    joueur
+                {% elseif role == 'ROLE_REFEREE' %}
+                    arbitre
+                {% else %}
+                    Utilisateur
+                {% endif %}
+            {{not loop.last ? ',' : ''}}
             {% endfor %}
         </li>
     </ul>

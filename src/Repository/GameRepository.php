@@ -21,6 +21,29 @@ class GameRepository extends ServiceEntityRepository
         parent::__construct($registry, Game::class);
     }
 
+     /**
+      * @return Game[] Returns an array of Game objects
+    */
+
+
+    public function findBySearch($value)
+    {
+        return $this->createQueryBuilder('g')
+            ->andWhere('g.title = :val')
+            ->setParameter('val', '%' . $value . '%') 
+            ->orderBy('g.title', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+
+
+
+
+
+
+
     /**
      * @throws ORMException
      * @throws OptimisticLockException
