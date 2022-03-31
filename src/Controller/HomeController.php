@@ -20,6 +20,7 @@ class HomeController extends AbstractController // Un controller est une classe.
             'controller_name' => 'HomeController',
             'games' => $gameRepository->findAll(),
             'players' => count($pr->findAll()),
+            'winners' => $pr->findWinners()
         ]);
     }
 }

@@ -107,6 +107,22 @@ yarn encore prod
 
 // pour ne pas avoir à lancer la commande à chaque modification d'un fichier js ou css
 yarn encore dev --watch ( ⚠ le terminal n'est plus accessible)
+---------------------------------------------------------------------------
+
+Requete propre au projet : 
+
+// Requête qui retourne tous les joueurs ayant déjà gagné une partie
+SELECT * 
+FROM player p 
+	JOIN contest c ON c.winner_id = p.id
+
+
+// Requête qui retourne les joueurs de la partie n°1
+SELECT p.*
+FROM contest c 
+	JOIN contest_player cp ON c.id = cp.contest_id
+    JOIN player p ON p.id = cp.player_id
+WHERE c.id = 1
 
 ---------------------------------------------------------------------------
 $ bin/console debug:router -> Affiche les différentes routes du projet

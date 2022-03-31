@@ -3,10 +3,11 @@
 namespace App\Repository;
 
 use App\Entity\Player;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\OptimisticLockException;
+use App\Entity\Contest;
 use Doctrine\ORM\ORMException;
+use Doctrine\ORM\OptimisticLockException;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @method Player|null find($id, $lockMode = null, $lockVersion = null)
@@ -44,6 +45,27 @@ class PlayerRepository extends ServiceEntityRepository
             $this->_em->flush();
         }
     }
+
+
+    /**
+    * @return Player[] Retourne les joueurs ayant déjà gagné une partie : 
+    *SELECT p.*
+    *FROM player p
+    * JOIN contest c ON c.winner_id = p.id
+    */
+
+    public function findWinners()
+    {
+        return $this->createQueryBuilder('p')
+            ->join(Contest::class, 'c', 'WITH','c.winner = p.id')
+            
+            ->orderBy('p.id', 'ASC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+    
 
     // /**
     //  * @return Player[] Returns an array of Player objects

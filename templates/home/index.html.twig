@@ -3,33 +3,23 @@
 {% block title %} {{ controller_name }}{% endblock %}
 
 {% block body %}
-    <h2> Page d'accueil </h2>
+    <h1> Page d'accueil </h1>
 
     <div class="card-columns">
         {% for game in games %}
-            <div class="card" style="width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title">{{ game.title}}</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Déjà {{ game.contests|length }} parties jouées!</h6>
-                    <p class="card-text">
-                        Entre {{ game.minPlayers}} et {{ game.maxPlayers}} joueurs
-                    </p>
-                    <p> Joueurs ayant déjà participé :
-                        {% for partie in game.contests %}
-                            {% for joueur in partie.players %}
-                                {{joueur.nickname}},
-                            {% endfor %}
-                        {% endfor %}
-                    </p>
-                    <a href="{{path('app_admin_new_game_contest', {'id': game.id}) }}" class="card-link">Commencer une partie</a>
-
-                    {# <a href="#" class="card-link">Another link</a> #}
-                </div>
-            </div>
+            {{include  ("game/_card.html.twig")}}
         {% endfor %}
     </div>
-
+    <hr>
     <p>Nombre de joueurs actuellement sur le site {{players}}</p>
+    <hr>
+    <h2>Joueurs ayant déjà gagné une partie : </h2>
+    <ul>
+        {% for joueur in winners %}
+            <li>{{ joueur.nickname ~ "(" ~ joueur.email ~ ")" }}</li>
+        {% endfor %}
+        
+    </ul>
 
 {% endblock %}
 

@@ -26,7 +26,7 @@
         <div class="container">
             {{ include("menu.html.twig") }}
             
-            <h1>My Scoreboard</h1>
+            <h1>{% block titreH1 %} MyScoreboard {%endblock%}</h1>
             {% block body %}{% endblock %}
 
             <footer>

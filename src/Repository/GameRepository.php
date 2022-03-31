@@ -29,7 +29,7 @@ class GameRepository extends ServiceEntityRepository
     public function findBySearch($value)
     {
         return $this->createQueryBuilder('g')
-            ->andWhere('g.title = :val')
+            ->where('g.title LIKE :val')
             ->setParameter('val', '%' . $value . '%') 
             ->orderBy('g.title', 'ASC')
             ->getQuery()

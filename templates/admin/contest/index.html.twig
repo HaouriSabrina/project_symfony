@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Contest index{% endblock %}
+{% block title %}Liste des parties{% endblock %}
+{% block titreH1 %}Liste des parties{% endblock %}
 
 {% block body %}
     <h1>Contest index</h1>
@@ -25,8 +26,8 @@
                 <td> {{ contest.players|length}}</td>
                 <td>{{ contest.winner ? contest.winner.nickname : "" }}</td>
                 <td>
-                    <a href="{{ path('app_admin_contest_show', {'id': contest.id}) }}">show</a>
-                    <a href="{{ path('app_admin_contest_edit', {'id': contest.id}) }}">edit</a>
+                    <a href="{{ path('app_admin_contest_show', {'id': contest.id}) }}">Afficher</a>
+                    <a href="{{ path('app_admin_contest_edit', {'id': contest.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}

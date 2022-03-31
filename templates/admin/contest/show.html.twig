@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Contest{% endblock %}
+{% block title %}Partie n° {{ contest.id}}{% endblock %}
+{% block titreH1 %}Partie n° {{ contest.id}}{% endblock %}
 
 {% block body %}
-    <h1>Contest</h1>
 
     <table class="table">
         <tbody>
@@ -13,7 +13,7 @@
             </tr>
             <tr>
                 <th>Start_date</th>
-                <td>{{ contest.startDate ? contest.startDate|date('Y-m-d') : '' }}</td>
+                <td>{{ contest.startDate ? contest.startDate|date('d/m/Y') : '' }}</td>
             </tr>
 
             <tr>
@@ -40,16 +40,22 @@
                                 <td colspan="4">no records found</td>
                             </tr>
                         {% endfor %}
+
+                        
                         </tbody>
                     </table>
                                 </td>
             </tr>
+            <tr>
+                <th>Winner</th>
+                <td>{{ contest.winner ? contest.winner.nickname : "Non désigné"}}</td>
+            </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('app_admin_contest_index') }}">back to list</a>
+    <a href="{{ path('app_admin_contest_index') }}">Retour à la liste</a>
 
-    <a href="{{ path('app_admin_contest_edit', {'id': contest.id}) }}">edit</a>
+    <a href="{{ path('app_admin_contest_edit', {'id': contest.id}) }}">modifier</a>
 
     {{ include('admin/contest/_delete_form.html.twig') }}
 {% endblock %}

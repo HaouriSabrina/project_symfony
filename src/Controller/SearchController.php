@@ -14,9 +14,10 @@ class SearchController extends AbstractController
     public function index(Request $rq, GameRepository $gr): Response
     {
         $word = $rq->query->get("search");
-        $jeux = $gr->findBySearch($word);
+        $games = $gr->findBySearch($word);
         return $this->render('search/index.html.twig', [
-            'jeux' => $jeux,
+            'games' => $games,
+            'mot' => $word
         ]);
     }
 }
