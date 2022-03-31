@@ -11,6 +11,7 @@
                 <th>Id</th>
                 <th>Pseudo</th>
                 <th>Roles</th>
+                <th>Email</th>
                 <th>Password</th>
                 <th>actions</th>
             </tr>
@@ -46,6 +47,14 @@
                          #}
                     {% endfor %}
                 </td>
+                <td>
+                    {% if user.player == NULL %} {#Condition car tous mes users n'ont pas forcément d'adresse email et cela peut retourner NULL#}
+                        Cet utilisateur n'a pas d'adresse email
+                    {% else %}
+                        {{ user.player.email }}
+                    {% endif %}
+                </td>
+               
                 <td>******</td>
                 <td>
                     <a href="{{ path('app_admin_user_show', {'id': user.id}) }}">show</a>

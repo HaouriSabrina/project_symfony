@@ -3,11 +3,13 @@
 namespace App\Form;
 
 use App\Entity\User;
+use App\Repository\PlayerRepository;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class UserType extends AbstractType
 {
@@ -26,6 +28,10 @@ class UserType extends AbstractType
                 ],
                 'multiple' => true,
                 'expanded' => true
+            ])
+            ->add('email', EmailType::class,[
+                'mapped' => false,
+                
             ])
             ->add('password', TextType::class, [
                 'mapped' => false,
