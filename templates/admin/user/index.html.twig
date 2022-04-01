@@ -47,6 +47,7 @@
                          #}
                     {% endfor %}
                 </td>
+                {# <td>{{ user.player ? user.player.email : '' }}</td> #}
                 <td>
                     {% if user.player == NULL %} {#Condition car tous mes users n'ont pas forcément d'adresse email et cela peut retourner NULL#}
                         Cet utilisateur n'a pas d'adresse email
@@ -57,9 +58,9 @@
                
                 <td>******</td>
                 <td>
-                    <a href="{{ path('app_admin_user_show', {'id': user.id}) }}">show</a>
-                    <a href="{{ path('app_admin_user_edit', {'id': user.id}) }}">edit</a>
-                </td>
+                    <a href="{{ path('app_admin_user_show', {'id': user.id}) }}"><i class="fa fa-user"></i></a>
+                    <a href="{{ path('app_admin_user_edit', {'id': user.id}) }}"><i class="fa fa-edit"></i></a>
+                </td
             </tr>
         {% else %}
             <tr>
@@ -69,5 +70,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_admin_user_new') }}">Create new</a>
+    <a class="btn btn-primary" href="{{ path('app_admin_user_new') }}">Create new</a>
 {% endblock %}

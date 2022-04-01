@@ -6,10 +6,12 @@ use App\Entity\User;
 use App\Repository\PlayerRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Validator\Constraints\NotNull;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Validator\Constraints\Length;
 
 class UserType extends AbstractType
 {
@@ -17,7 +19,15 @@ class UserType extends AbstractType
     {
         $user = $options["data"]; // je récupère la variable User qui est liée au formulaire dans le contrôleur dans la méthode createForm()
         $builder
-            ->add('pseudo')
+            ->add('pseudo', TextType::class, [
+                "constraints" =>[
+                    new NotNull(['message' =>'Veuillez saisir un pseudo pour vous connecter']),
+                    new Length([
+                    "min"           => 4,
+                    "minMessage"    => "Le pseudo doit comporter au moins 4 caractères"
+                ])
+                ]
+            ])
             ->add('roles', ChoiceType::class, [
                 'choices' => [
                     'Administrateur'    => 'ROLE_ADMIN',
@@ -30,7 +40,11 @@ class UserType extends AbstractType
                 'expanded' => true
             ])
             ->add('email', EmailType::class,[
-                'mapped' => false,
+                'mapped'        => false,
+                'label'         => 'E-mail',
+                'constraints'   => [
+                    new NotNull(['message' =>"L'email ne peut pas être vide"])
+                ]
                 
             ])
             ->add('password', TextType::class, [

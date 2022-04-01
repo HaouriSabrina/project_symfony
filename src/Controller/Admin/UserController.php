@@ -31,17 +31,23 @@ class UserController extends AbstractController
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
-        $player = new Player();
+        
         
         if ($form->isSubmitted() && $form->isValid()) {
+            if ( !in_array("ROLE_ADMIN", $user->getRoles())) {
+                $player = new Player();
+                $pseudo = $user->getPseudo(); // utilisation de la méthode getPseudo() sur le $user que je stock dans une variable $pseudo
+                $player->setNickname($pseudo);
+                $email = $form->get('email')->getData();
+                $player->setEmail($email);
+                $user->setPlayer($player);
+            } else {
+                $user->setRoles(["ROLE_ADMIN"]);
+            }
             $mdp = $form->get('password')->getData();
             $password = $hasher->hashPassword($user, $mdp);
             $user->setPassword( $password);
-            $pseudo = $user->getPseudo(); // utilisation de la méthode getPseudo() sur le $user que je stock dans une variable $pseudo
-            $player->setNickname($pseudo);
-            $email = $form->get('email')->getData();
-            $player->setEmail($email);
-            $user->setPlayer($player);
+            
             $userRepository->add($user);
 
             return $this->redirectToRoute('app_admin_user_index', [], Response::HTTP_SEE_OTHER);
@@ -70,6 +76,16 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if ( !in_array("ROLE_ADMIN", $user->getRoles())) {
+                $player = new Player();
+                $pseudo = $user->getPseudo(); // utilisation de la méthode getPseudo() sur le $user que je stock dans une variable $pseudo
+                $player->setNickname($pseudo);
+                $email = $form->get('email')->getData();
+                $player->setEmail($email);
+                $user->setPlayer($player);
+            } else {
+                $user->setRoles(["ROLE_ADMIN"]);
+            }
             if ($mdp = $form->get('password')->getData() ) {
                 $password = $hasher->hashPassword($user, $mdp);
                 $user->setPassword( $password);
@@ -121,5 +137,4 @@ class UserController extends AbstractController
         $this->addFlash('success', "Mise à jours des utilisateurs réussie! $compteur joueurs créés");
         return $this->redirectToRoute("app_admin_player_index");
     }
-    
 }
